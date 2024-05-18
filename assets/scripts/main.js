@@ -7,7 +7,7 @@ const RECIPE_URLS = [
     'https://adarsh249.github.io/Lab8-Starter/recipes/3_moms-cornbread-stuffing.json',
     'https://adarsh249.github.io/Lab8-Starter/recipes/4_50-indulgent-thanksgiving-side-dishes-for-any-holiday-gathering.json',
     'https://adarsh249.github.io/Lab8-Starter/recipes/5_healthy-thanksgiving-recipe-crockpot-turkey-breast.json',
-    'https://adarsh249.github.io/Lab8-Starter/recipes/6_one-pot-thanksgiving-dinner.json',
+    'https://adarsh249.github.io/Lab8-Starter/recipes/6_one-pot-thanksgiving-dinner.json'
 ];
 
 // Run the init() function when the page has loaded
@@ -100,6 +100,42 @@ async function getRecipes() {
   //            resolve() method.
   // A10. TODO - Log any errors from catch using console.error
   // A11. TODO - Pass any errors to the Promise's reject() function
+
+  //A1
+  const storedRecipes = localStorage.getItem('recipes');
+  if (storedRecipes) {
+    return JSON.parse(storedRecipes);
+  }
+  
+   // A2
+   const recipes = [];
+   // A3
+   return new Promise(async (resolve, reject) => {
+     // A4
+     for (const url of RECIPE_URLS) {
+      console.log(url);
+       // A5
+       try {
+         // A6
+         const response = await fetch(url);
+         // A7
+         const recipe = await response.json();
+         // A8
+         recipes.push(recipe);
+         // A9
+         if (recipes.length === RECIPE_URLS.length) {
+           localStorage.setItem('recipes', JSON.stringify(recipes));
+           Promise.resolve(recipes);
+         }
+       } catch (error) {
+         // A10
+         console.error(error);
+ 
+         // A11
+         Promise.reject(new Error('fail')).then(resolve, reject);
+       }
+     }
+   });
 }
 
 /**
