@@ -54,6 +54,22 @@ function initializeServiceWorker() {
   // B5. TODO - In the event that the service worker registration fails, console
   //            log that it has failed.
   // STEPS B6 ONWARDS WILL BE IN /sw.js
+    // B1
+    if ('serviceWorker' in navigator) {
+      // B2
+      window.addEventListener('load', function() {
+        // B3
+        navigator.serviceWorker.register('./sw.js')
+          .then(function(registration) {
+            // B4
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(function(err) {
+            // B5
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
 }
 
 /**
@@ -112,6 +128,7 @@ async function getRecipes() {
    // A3
    return new Promise(async (resolve, reject) => {
      // A4
+     //loop to go throught he recipe array
      for (const url of RECIPE_URLS) {
       console.log(url);
        // A5
