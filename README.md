@@ -5,3 +5,5 @@ Graceful degradtion as mentioned in the lab is where you started working down on
 [link to website](https://terencetan1021.github.io/Lab8-Starter/)
 
 ![picture](PWA.png)
+
+![picture](PWA2.png)
